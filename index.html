@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>soobin</title>
+    <link rel="icon" href="soobin-icon.png" type="image/png">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background: linear-gradient(to right, hsl(207, 100%, 85%), #ffe0e5);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景星空圖 */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('IMG_8BC530F125E0-1.jpeg') repeat;
+            background-size: cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 90%;
+            max-width: 1200px;
+            margin: 80px auto 50px;
+        }
+
+        .image-side {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .image-side img {
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-side img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .left-image-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .left-image-wrapper::after {
+            content: "2000年12月5日";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            font-size: 0.85em;
+        }
+
+        .left-image-wrapper:hover::after {
+            opacity: 1;
+        }
+
+        .text-side {
+            flex: 2;
+            text-align: center;
+            color: #222;
+            padding: 20px;
+        }
+
+        .text-side h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .text-side p {
+            font-size: 1.2em;
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .text-side a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+
+        .text-side a:hover {
+            text-decoration: underline;
+        }
+
+        .logo {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            z-index: 1000;
+        }
+
+        .logo img {
+            width: 100px;
+        }
+
+        /* 返回頂部按鈕 */
+        #backToTop {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0.7;
+            display: none;
+        }
+
+        #backToTop:hover {
+            opacity: 1;
+        }
+
+        /* 語言切換按鈕固定右上角 */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-switcher button {
+            margin-left: 5px;
+            padding: 5px 10px;
+            background-color: #ffffffcc;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .language-switcher button:hover {
+            background-color: #eee;
+        }
+
+        /* 響應式 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                position: static;
+                margin-top: 20px;
+                transform: none;
+            }
+        }
+
+        /* Lightbox */
+        #lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 語言切換按鈕 -->
+    <div class="language-switcher">
+        <button onclick="setLanguage('zh')">中文</button>
+        <button onclick="setLanguage('kr')">한국어</button>
+    </div>
+
+    <div class="container">
+        <div class="image-side">
+            <div class="left-image-wrapper">
+                <img src="IMG_9113.PNG" alt="左邊照片" class="left-image" onclick="openLightbox(this.src)">
+            </div>
+        </div>
+
+        <div class="text-side">
+            <h1>최수빈</h1>
+            <p><a href="https://www.instagram.com/page.soobin" target="_blank">🐰</a></p>
+
+            <!-- 中文內容 -->
+            <div class="lang zh">
+                <p>身高185</p>
+                <p>MBTI:ISFP</p>
+                <p>韓國男子團體TOMORROW X TOGETHER 擔任隊長</p>
+                <p>《The Dream Chapter: STAR》作為出道專輯在韓國出道</p>
+                <p>主打曲為 <a href="https://www.youtube.com/watch?v=W3iSnJ663II" target="_blank">CROWN</a></p>
+                <p>個人綜藝 <a href="https://youtube.com/playlist?list=PL4ed5BUFc6UpHDT486Y1zjGLad6R5_0QV" target="_blank">最愛的最愛</a></p>
+                <p><a href="https://youtu.be/lomg3JLjIQc?si=Uwd3dmBS-ixmx6rD" target="_blank">'숲'</a></p>
+                <p><a href="https://youtu.be/NTDTHIyNWLk?si=aAq9IfK6Yo2OXU2Q" target="_blank">'Dolphin'</a></p>
+                <p><a href="https://youtu.be/D4foT4kJNU4?si=REatD3-5xPuYcPn8" target="_blank">'Magic'</a></p>
+                <p><a href="https://youtu.be/GoBfAmdjLvI?si=G26na5upXIvfU8oq" target="_blank">'Deja Vu'</a></p>
+                <p><a href="https://youtu.be/M1sQ5woWoqI?si=wu8BCgOdgiwvgQ8H" target="_blank">'LO$ER=LO♡ER'</a></p>
+                <p><a href="https://youtu.be/q-XHSm4GtCA?si=8qCBS2KJVTxLaZW0" target="_blank">'I'll See You There Tomorrow'</a></p>
+
+            </div>
+
+            <!-- 韓文內容 -->
+            <div class="lang kr" style="display: none;">
+                <p>키 185cm</p>
+                <p>MBTI: ISFP</p>
+                <p>한국 보이그룹 TOMORROW X TOGETHER 리더</p>
+                <p>《The Dream Chapter: STAR》로 한국 데뷔</p>
+                <p>타이틀곡은 <a href="https://www.youtube.com/watch?v=W3iSnJ663II" target="_blank">CROWN</a></p>
+                <p>개인 예능 <a href="https://youtube.com/playlist?list=PL4ed5BUFc6UpHDT486Y1zjGLad6R5_0QV" target="_blank">최애의 최애</a></p>
+                <p><a href="https://youtu.be/lomg3JLjIQc?si=Uwd3dmBS-ixmx6rD" target="_blank">'숲'</a></p>
+                <p><a href="https://youtu.be/NTDTHIyNWLk?si=aAq9IfK6Yo2OXU2Q" target="_blank">'Dolphin'</a></p>
+                <p><a href="https://youtu.be/D4foT4kJNU4?si=REatD3-5xPuYcPn8" target="_blank">'Magic'</a></p>
+                <p><a href="https://youtu.be/GoBfAmdjLvI?si=G26na5upXIvfU8oq" target="_blank">'Deja Vu'</a></p>
+                <p><a href="https://youtu.be/M1sQ5woWoqI?si=wu8BCgOdgiwvgQ8H" target="_blank">'LO$ER=LO♡ER'</a></p>
+                <p><a href="https://youtu.be/q-XHSm4GtCA?si=8qCBS2KJVTxLaZW0" target="_blank">'내일에서 기다릴게 '</a></p>
+            </div>
+        </div>
+
+        <div class="image-side">
+            <img src="IMG_9112.PNG" alt="右邊照片" class="right-image" onclick="openLightbox(this.src)">
+        </div>
+    </div>
+
+    <div class="logo">
+        <a href="https://www.instagram.com/txt_bighit" target="_blank">
+            <img src="IMG_9090.PNG" alt="Logo">
+        </a>
+    </div>
+
+    <button id="backToTop" onclick="scrollToTop()">↑ Top</button>
+
+    <!-- Lightbox 元件 -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <img src="" alt="放大圖片">
+    </div>
+
+    <script>
+        // 返回頂部按鈕功能
+        const backToTop = document.getElementById("backToTop");
+        window.onscroll = function () {
+            backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+        };
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Lightbox 功能
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = lightbox.querySelector("img");
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.style.display = "flex";
+        }
+        function closeLightbox() {
+            lightbox.style.display = "none";
+        }
+
+        // 語言切換功能
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'block');
+        }
+    </script>
+</body>
+</html>
